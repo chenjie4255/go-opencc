@@ -13,9 +13,14 @@ type Config struct {
 type ConfigType int
 
 const (
-	ConfigTypeS2T  ConfigType = 1
-	ConfigTypeS2TW ConfigType = 2
+	ConfigTypeS2T   ConfigType = 1
+	ConfigTypeS2TW  ConfigType = 2
+	ConfigTypeS2TWP ConfigType = 3
+	ConfigTypeTW2S  ConfigType = 4
+	ConfigTypeTW2SP ConfigType = 5
 )
+
+var DefaultConfig *Config
 
 func NewConfig(t ConfigType) *Config {
 	cf := Config{}
@@ -23,6 +28,12 @@ func NewConfig(t ConfigType) *Config {
 		cf.cfFile = C.opencc_open(C.CString("s2t.json"))
 	} else if t == ConfigTypeS2TW {
 		cf.cfFile = C.opencc_open(C.CString("s2tw.json"))
+	} else if t == ConfigTypeS2TWP {
+		cf.cfFile = C.opencc_open(C.CString("s2twp.json"))
+	} else if t == ConfigTypeTW2S {
+		cf.cfFile = C.opencc_open(C.CString("tw2s.json"))
+	} else if t == ConfigTypeTW2SP {
+		cf.cfFile = C.opencc_open(C.CString("tw2sp.json"))
 	}
 
 	return &cf
